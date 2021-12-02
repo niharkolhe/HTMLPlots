@@ -19,7 +19,6 @@
 }
 </style>
 <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript">
 
     function changeCharts(){
@@ -39,12 +38,14 @@
         var chartselectorvalue = ce.value;
 
         if( chartselectorvalue != 'CC18'){
-            document.getElementById('chart_sunburst').style.display="none";
-            $(".chart_sunburst").hide();
+            for(let i =0;i<2;i++){
+                document.getElementsByClassName("chart_sunburst")[i].style.display="none";
+            }
         }
         else{
-            document.getElementById('chart_sunburst').style.display="block";
-            $(".chart_sunburst").show();
+          for(let i =0;i<2;i++){
+              document.getElementsByClassName("chart_sunburst")[i].style.display="";
+          }
         }
 
         changeCharts();
@@ -72,12 +73,10 @@
       </td>
       <td>
         <select id="chartselectordropdown" onchange="onChartSelected()">
-          <option value="CC18">Carniege Classification 2018</option>
-          <option value="2">Control</option>
-          <option value="3">Land Grants</option>
-          <option value="4">Regions</option>
-          <option value="NSFSpending">NSF Expenditures</option>
-          <option value="NSFFunding">NSF Funding</option>
+          <option onclick="onChartSelected" value="CC18">Carniege Classification 2018</option>
+          <option onclick="onChartSelected" value="CON">Control</option>
+          <option onclick="onChartSelected" value="NSFSpending">NSF Expenditures</option>
+          <option onclick="onChartSelected" value="NSFFunding">NSF Funding</option>
         </select>
       </td>
     </tr>
@@ -161,7 +160,6 @@
 
 <script>
 //document.getElementById("chartselectordropdown").addEventListener("click", onChartSelected);
-$(".radiobtn").click(changeCharts);
 </script>
 </body>
 </html>
