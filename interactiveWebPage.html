@@ -18,46 +18,110 @@
   cursor: pointer;
 }
 </style>
-<body >
-<form  name="theForm">
-  <label for="chart">Charts: </label>
-  <select id="chartselectordropdown">
-    <option value="CC18">Carniege Classification 2018</option>
-    <option value="2">Control</option>
-    <option value="3">Land Grants</option>
-    <option value="4">Regions</option>
-  </select>
-  <br>
-  <label for="lname">Chart Type: </label><br>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript">
 
-  <div>
-    <table width="100%">
-      <tr>
-        <td>
-          <input type="radio" id="chart_pie"
-           name="charttype" value="Pie">
-          <label id="chart_pie" for="chart_pie">Pie</label>
-        </td>
-        <td>
-          <input type="radio" id="chart_bar"
-           name="charttype" value="Bar">
-          <label for="chart_bar">Bar</label>
-        </td>
-        <td>
-          <input type="radio" id="chart_sunburst"
-           name="charttype" value="Sunburst">
-          <label for="chart_sunburst">Sun Burst</label>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <br>
-  <table width="100%">
+    function changeCharts(){
+      var webpagelink = "https://htmlpreview.github.io/?https://github.com/niharkolhe/HTMLPlots/blob/main/InteractiveCarniegeVisualizations/";
+
+        var ce = document.getElementById("chartselectordropdown");
+        var chartselectorvalue = ce.value;
+        var charttypevalue = document.theForm.charttype.value
+        document.getElementById('iframe_all').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_all"+".html";
+        document.getElementById('iframe_msi').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_msi"+".html";
+        document.getElementById('iframe_hbcu').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_hbcu"+".html";
+        document.getElementById('iframe_hsi').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_hsi"+".html";
+      }
+      function onChartSelected(){
+        document.theForm.charttype.value = "Pie";
+        var ce = document.getElementById("chartselectordropdown");
+        var chartselectorvalue = ce.value;
+
+        if( chartselectorvalue != 'CC18'){
+            document.getElementById('chart_sunburst').style.display="none";
+            $(".chart_sunburst").hide();
+        }
+        else{
+            document.getElementById('chart_sunburst').style.display="block";
+            $(".chart_sunburst").show();
+        }
+
+        changeCharts();
+      }
+      function onHeightSlide(newvalue){
+
+          document.getElementById('iframe_all').height = newvalue;
+          document.getElementById('iframe_msi').height = newvalue;
+          document.getElementById('iframe_hbcu').height = newvalue;
+          document.getElementById('iframe_hsi').height = newvalue;
+        }
+
+
+      // document.getElementById("hieghtslider").addEventListener("oninput", onHeightSlide(this.value));
+  </script>
+</head>
+
+<body >
+
+<form  name="theForm">
+  <table width =100%>
+    <tr >
+      <td width =10%>
+        <label for="chart">Charts: </label>
+      </td>
+      <td>
+        <select id="chartselectordropdown" onchange="onChartSelected()">
+          <option value="CC18">Carniege Classification 2018</option>
+          <option value="2">Control</option>
+          <option value="3">Land Grants</option>
+          <option value="4">Regions</option>
+          <option value="NSFSpending">NSF Expenditures</option>
+          <option value="NSFFunding">NSF Funding</option>
+        </select>
+      </td>
+    </tr>
     <tr>
-      <td width=80%><input type="button" id="formsubmitbtn" value="Submit"  onclick="changeCharts"></td>
-      <td>Chart Heights:  <input type="range" min="100" max="900" value="300" class="slider" id="hieghtslider" onchange="onHeightSlide(this.value);" align="right"></td>
+      <td>
+        <label for="lname">Chart Type: </label>
+      </td>
+      <td>
+        <div>
+          <table width="100%">
+            <tr>
+              <td>
+                <input type="radio" id="chart_pie" class ="chart_pie radiobtn"
+                 name="charttype" value="Pie" onclick="changeCharts" >
+                <label  class ="chart_pie" for="chart_pie">Pie</label>
+              </td>
+              <td>
+                <input type="radio" id="chart_bar" class ="chart_bar radiobtn"
+                 name="charttype" value="Bar" onclick="changeCharts">
+                <label class ="chart_bar" for="chart_bar">Bar</label>
+              </td>
+              <td>
+                <input type="radio" id="chart_sunburst" class ="chart_sunburst radiobtn"
+                 name="charttype" value="Sunburst" onclick="changeCharts" checked="checked">
+                <label class ="chart_sunburst" for="chart_sunburst">Sun Burst</label>
+              </td>
+
+            </tr>
+
+          </table>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="lname">Chart Heights:</label>
+      </td>
+      <td>
+        <input type="range" min="100" max="900" value="400" width =100% class="slider" id="hieghtslider" onchange="onHeightSlide(this.value);"></td>
+
+      </td>
     </tr>
   </table>
+
 
 
 
@@ -69,10 +133,10 @@
   </tr>
   <tr >
     <td width="50%">
-      <iframe id="iframe_all" src="https://htmlpreview.github.io/?https://github.com/niharkolhe/HTMLPlots/blob/main/CarnegieClassification/BASIC2018_Pie.html"  width="100%" height="300" frameBorder="0"></iframe>
+      <iframe id="iframe_all" src="https://htmlpreview.github.io/?https://github.com/niharkolhe/HTMLPlots/blob/main/InteractiveCarniegeVisualizations/CC18_Sunburst_all.html"  width="100%" height="400" frameBorder="0"></iframe>
     </td>
     <td width="50%">
-      <iframe id="iframe_msi"src="https://htmlpreview.github.io/?https://github.com/niharkolhe/HTMLPlots/blob/main/CarnegieClassification/BASIC2018_Pie.html"  width="100%"height="300" frameBorder="0"></iframe>
+      <iframe id="iframe_msi"src="https://htmlpreview.github.io/?https://github.com/niharkolhe/HTMLPlots/blob/main/InteractiveCarniegeVisualizations/CC18_Sunburst_msi.html"  width="100%"height="400" frameBorder="0"></iframe>
     </td>
   </tr>
   <tr>
@@ -85,35 +149,19 @@
   </tr>
   <tr >
     <td width="50%">
-      <iframe id="iframe_hbcu" src="https://htmlpreview.github.io/?https://github.com/niharkolhe/HTMLPlots/blob/main/CarnegieClassification/BASIC2018_Pie.html"  width="100%" height="300" frameBorder="0"></iframe>
+      <iframe id="iframe_hbcu" src="https://htmlpreview.github.io/?https://github.com/niharkolhe/HTMLPlots/blob/main/InteractiveCarniegeVisualizations/CC18_Sunburst_hbcu.html"  width="100%" height="400" frameBorder="0"></iframe>
     </td>
     <td width="50%">
-      <iframe id="iframe_hsi"src="https://htmlpreview.github.io/?https://github.com/niharkolhe/HTMLPlots/blob/main/CarnegieClassification/BASIC2018_Pie.html"  width="100%"height="300" frameBorder="0"></iframe>
+      <iframe id="iframe_hsi"src="https://htmlpreview.github.io/?https://github.com/niharkolhe/HTMLPlots/blob/main/InteractiveCarniegeVisualizations/CC18_Sunburst_hsi.html"  width="100%"height="400" frameBorder="0"></iframe>
     </td>
   </tr>
 </table>
-<script type="text/javascript">
-  var webpagelink = "https://htmlpreview.github.io/?https://github.com/niharkolhe/HTMLPlots/blob/main/InteractiveCarniegeVisualizations/";
-  function changeCharts(){
-      var ce = document.getElementById("chartselectordropdown");
-      var chartselectorvalue = ce.value;
-      var charttypevalue = document.theForm.charttype.value
-      document.getElementById('iframe_all').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_all"+".html";
-      document.getElementById('iframe_msi').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_msi"+".html";
-      document.getElementById('iframe_hbcu').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_hbcu"+".html";
-      document.getElementById('iframe_hsi').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_hsi"+".html";
-    }
-    function onHeightSlide(newvalue){
 
-        document.getElementById('iframe_all').height = newvalue;
-        document.getElementById('iframe_msi').height = newvalue;
-        document.getElementById('iframe_hbcu').height = newvalue;
-        document.getElementById('iframe_hsi').height = newvalue;
-      }
-
-    document.getElementById("formsubmitbtn").addEventListener("click", changeCharts);
-    // document.getElementById("hieghtslider").addEventListener("oninput", onHeightSlide(this.value));
-</script>
 </form>
+
+<script>
+//document.getElementById("chartselectordropdown").addEventListener("click", onChartSelected);
+$(".radiobtn").click(changeCharts);
+</script>
 </body>
 </html>
