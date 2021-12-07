@@ -27,8 +27,9 @@
         var ce = document.getElementById("chartselectordropdown");
         var chartselectorvalue = ce.value;
         var charttypevalue = document.theForm.charttype.value
-
-        if(ce.value == "NSFFunding" || ce.value == "NSFSpending" ){
+        var it = document.getElementById("insititutetypedropdown");
+        var insititutetypevalue = it.value;
+        if((ce.value == "NSFFunding" || ce.value == "NSFSpending") && insititutetypevalue != "AL"){
 
           var sit = document.getElementById("insititutesubtypedropdown");
           var subinsititutetypevalue = sit.value;
@@ -86,6 +87,12 @@
         var sit = document.getElementById("insititutesubtypedropdown");
 
         sit.options.length=0;
+        if( insititutetypevalue == 'AL'){
+          document.getElementById("insititutesubtyperow").style.display="none";
+        }
+        else{
+          document.getElementById("insititutesubtyperow").style.display="";
+        }
         if( insititutetypevalue == 'NC'){
             sit.options[0] = new Option('(Not classified)', '0');
         }
@@ -177,7 +184,7 @@
       </td>
       <td>
         <select id="insititutetypedropdown" onchange="onInstituteTypeSelected()">
-
+          <option onclick="onInstituteTypeSelected" value="AL">All</option>
           <option onclick="onInstituteTypeSelected" value="AC">Associate's Colleges</option>
           <option onclick="onInstituteTypeSelected" value="DU">Doctoral Universities</option>
           <option onclick="onInstituteTypeSelected" value="MI">Master's Institutions</option>
