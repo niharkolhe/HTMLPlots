@@ -27,10 +27,23 @@
         var ce = document.getElementById("chartselectordropdown");
         var chartselectorvalue = ce.value;
         var charttypevalue = document.theForm.charttype.value
-        document.getElementById('iframe_all').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_all"+".html";
-        document.getElementById('iframe_msi').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_msi"+".html";
-        document.getElementById('iframe_hbcu').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_hbcu"+".html";
-        document.getElementById('iframe_hsi').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_hsi"+".html";
+
+        if(ce.value == "NSFFunding" || ce.value == "NSFSpending" ){
+
+          var sit = document.getElementById("insititutesubtypedropdown");
+          var subinsititutetypevalue = sit.value;
+          document.getElementById('iframe_all').src = webpagelink+"/"+chartselectorvalue+"/"+chartselectorvalue+"_"+charttypevalue+"_all_B"+subinsititutetypevalue+".html";
+          document.getElementById('iframe_msi').src = webpagelink+"/"+chartselectorvalue+"/"+chartselectorvalue+"_"+charttypevalue+"_msi_B"+subinsititutetypevalue+".html";
+          document.getElementById('iframe_hbcu').src = webpagelink+"/"+chartselectorvalue+"/"+chartselectorvalue+"_"+charttypevalue+"_hbcu_B"+subinsititutetypevalue+".html";
+          document.getElementById('iframe_hsi').src = webpagelink+"/"+chartselectorvalue+"/"+chartselectorvalue+"_"+charttypevalue+"_hsi_B"+subinsititutetypevalue+".html";
+        }
+        else{
+          document.getElementById('iframe_all').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_all"+".html";
+          document.getElementById('iframe_msi').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_msi"+".html";
+          document.getElementById('iframe_hbcu').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_hbcu"+".html";
+          document.getElementById('iframe_hsi').src = webpagelink+chartselectorvalue+"_"+charttypevalue+"_hsi"+".html";
+        }
+
       }
       function onChartSelected(){
         document.theForm.charttype.value = "Pie";
@@ -41,6 +54,7 @@
             for(let i =0;i<2;i++){
                 document.getElementsByClassName("chart_sunburst")[i].style.display="none";
             }
+
         }
         else{
           for(let i =0;i<2;i++){
@@ -48,8 +62,81 @@
           }
         }
 
+        if( chartselectorvalue == 'NSFFunding' || chartselectorvalue == 'NSFSpending'){
+          document.getElementById("insititutetyperow").style.display="";
+          document.getElementById("insititutesubtyperow").style.display="";
+          onInstituteTypeSelected();
+        }
+        else{
+
+          document.getElementById("insititutetyperow").style.display="none";
+          document.getElementById("insititutesubtyperow").style.display="none";
+
+        }
+
         changeCharts();
       }
+
+      function onInstituteTypeSelected(){
+        // document.theForm.charttype.value = "Pie";
+        var it = document.getElementById("insititutetypedropdown");
+        var insititutetypevalue = it.value;
+
+        var sit = document.getElementById("insititutesubtypedropdown");
+
+        sit.options.length=0;
+        if( insititutetypevalue == 'NC'){
+            sit.options[0] = new Option('(Not classified)', '0');
+        }
+        if( insititutetypevalue == 'AC'){
+            sit.options[0] = new Option("Associate's Colleges: High Transfer-High Traditional", '1');
+            sit.options[1] = new Option("Associate's Colleges: High Transfer-Mixed Traditional/Nontraditional", '2');
+            sit.options[2] = new Option("Associate's Colleges: High Transfer-High Nontraditional", '3');
+            sit.options[3] = new Option("Associate's Colleges: Mixed Transfer/Career & Technical-High Traditional", '4');
+            sit.options[4] = new Option("Associate's Colleges: Mixed Transfer/Career & Technical-Mixed Traditional/Nontraditional", '5');
+            sit.options[5] = new Option("Associate's Colleges: Mixed Transfer/Career & Technical-High Nontraditional", '6');
+            sit.options[6] = new Option("Associate's Colleges: High Career & Technical-High Traditional", '7');
+            sit.options[7] = new Option("Associate's Colleges: High Career & Technical-Mixed Traditional/Nontraditional", '8');
+            sit.options[8] = new Option("Associate's Colleges: High Career & Technical-High Nontraditional", '9');
+            sit.options[9] = new Option("Special Focus Two-Year: Health Professions", '10');
+            sit.options[10] = new Option("Special Focus Two-Year: Technical Professions", '11');
+            sit.options[11] = new Option("Special Focus Two-Year: Arts & Design", '12');
+            sit.options[12] = new Option("Special Focus Two-Year: Other Fields", '13');
+            sit.options[13] = new Option("Baccalaureate/Associate's Colleges: Associate's Dominant", '14');
+        }
+        if( insititutetypevalue == 'DU'){
+            sit.options[0] = new Option("Doctoral Universities: Very High Research Activity", '15');
+            sit.options[1] = new Option("Doctoral Universities: High Research Activity", '16');
+            sit.options[2] = new Option("Doctoral/Professional Universities", '17');
+        }
+        if( insititutetypevalue == 'MI'){
+            sit.options[0] = new Option("Master's Colleges & Universities: Larger Programs", '18');
+            sit.options[1] = new Option("Master's Colleges & Universities: Medium Programs", '19');
+            sit.options[2] = new Option("Master's Colleges & Universities: Small Programs", '20');
+        }
+        if( insititutetypevalue == 'BC'){
+            sit.options[0] = new Option("Baccalaureate Colleges: Arts & Sciences Focus", '21');
+            sit.options[1] = new Option("Baccalaureate Colleges: Diverse Fields", '22');
+            sit.options[2] = new Option("Baccalaureate/Associate's Colleges: Mixed Baccalaureate/Associate's", '23');
+            sit.options[3] = new Option("Special Focus Four-Year: Faith-Related Institutions", '24');
+            sit.options[4] = new Option("Special Focus Four-Year: Medical Schools & Centers", '25');
+            sit.options[5] = new Option("Special Focus Four-Year: Other Health Professions Schools", '26');
+            sit.options[6] = new Option("Special Focus Four-Year: Engineering Schools", '27');
+            sit.options[7] = new Option("Special Focus Four-Year: Other Technology-Related Schools", '28');
+            sit.options[8] = new Option("Special Focus Four-Year: Business & Management Schools", '29');
+            sit.options[9] = new Option("Special Focus Four-Year: Arts, Music & Design Schools", '30');
+            sit.options[10] = new Option("Special Focus Four-Year: Law Schools", '31');
+            sit.options[11] = new Option("Special Focus Four-Year: Other Special Focus Institutions", '32');
+        }
+        if( insititutetypevalue == 'TC'){
+            sit.options[0] = new Option("Tribal Colleges", '33');
+        }
+
+
+        changeCharts();
+      }
+
+
       function onHeightSlide(newvalue){
 
           document.getElementById('iframe_all').height = newvalue;
@@ -80,6 +167,31 @@
           <option onclick="onChartSelected" value="LG">Land Grants</option>
           <option onclick="onChartSelected" value="NSFSpending">NSF Expenditures</option>
           <option onclick="onChartSelected" value="NSFFunding">NSF Funding</option>
+        </select>
+      </td>
+    </tr>
+    <tr id = "insititutetyperow" style="display:none;">
+      <td width =10%>
+        <label >Institute Type: </label>
+      </td>
+      <td>
+        <select id="insititutetypedropdown" onchange="onInstituteTypeSelected()">
+
+          <option onclick="onInstituteTypeSelected" value="AC">Associate's Colleges</option>
+          <option onclick="onInstituteTypeSelected" value="DU">Doctoral Universities</option>
+          <option onclick="onInstituteTypeSelected" value="MI">Master's Institutions</option>
+          <option onclick="onInstituteTypeSelected" value="BC">Baccalaureate Colleges</option>
+          <option onclick="onInstituteTypeSelected" value="TC">Tribal Colleges</option>
+          <option onclick="onInstituteTypeSelected" value="NC">(Not classified)</option>
+        </select>
+      </td>
+    </tr>
+    <tr id = "insititutesubtyperow" style="display:none;">
+      <td width =10%>
+        <label >Institute Type: </label>
+      </td>
+      <td>
+        <select id="insititutesubtypedropdown" onchange="onChartSelected()">
         </select>
       </td>
     </tr>
