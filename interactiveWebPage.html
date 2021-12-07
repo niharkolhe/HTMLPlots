@@ -32,6 +32,7 @@
 
           var sit = document.getElementById("insititutesubtypedropdown");
           var subinsititutetypevalue = sit.value;
+          console.log(subinsititutetypevalue);
           document.getElementById('iframe_all').src = webpagelink+"/"+chartselectorvalue+"/"+chartselectorvalue+"_"+charttypevalue+"_all_B"+subinsititutetypevalue+".html";
           document.getElementById('iframe_msi').src = webpagelink+"/"+chartselectorvalue+"/"+chartselectorvalue+"_"+charttypevalue+"_msi_B"+subinsititutetypevalue+".html";
           document.getElementById('iframe_hbcu').src = webpagelink+"/"+chartselectorvalue+"/"+chartselectorvalue+"_"+charttypevalue+"_hbcu_B"+subinsititutetypevalue+".html";
@@ -191,7 +192,7 @@
         <label >Institute Type: </label>
       </td>
       <td>
-        <select id="insititutesubtypedropdown" onchange="onChartSelected()">
+        <select id="insititutesubtypedropdown" onclick="changeCharts()">
         </select>
       </td>
     </tr>
